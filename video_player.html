@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Player</title>
+  <style>
+    body { display: flex; flex-direction: column; align-items: center; }
+    #video-container { margin-top: 20px; }
+  </style>
 </head>
 <body>
   <h1>VIDEO PLAYER</h1>
@@ -17,11 +21,14 @@
     const videoId = urlParams.get('video');
 
     if (videoId) {
+      // Construct the embed link (update this link if necessary)
+      const embedLink = `https://terabox.com/embed/${videoId}`;
+
       // Display the video (example: using an iframe)
       const videoContainer = document.getElementById('video-container');
       videoContainer.innerHTML = `
         <iframe 
-          src="https://terabox.com/embed/${videoId}" 
+          src="${embedLink}" 
           width="640" height="360" frameborder="0" allowfullscreen>
         </iframe>
       `;
