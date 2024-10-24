@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal Video Player</title>
+    <title>Video Player</title>
     <style>
         body {
             display: flex;
@@ -12,27 +12,18 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background-color: #f0f0f0;
             font-family: Arial, sans-serif;
         }
         h1 {
             color: #333;
             margin-bottom: 20px;
         }
-        #video-container {
-            width: 100%;
+        video {
+            width: 90%;
             max-width: 640px;
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-        }
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+            border: 2px solid #333;
+            border-radius: 10px;
         }
         #error-message {
             color: red;
@@ -41,38 +32,29 @@
     </style>
 </head>
 <body>
-    <h1>Universal Video Player</h1>
-    <div id="video-container"></div>
+    <h1>HTML5 Video Player</h1>
+    <video id="video-player" controls>
+        <source id="video-source" src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <div id="error-message"></div>
 
     <script>
         // Extract 'video' parameter from the URL
         const urlParams = new URLSearchParams(window.location.search);
-        const videoId = urlParams.get('video');
+        const videoUrl = urlParams.get('video');
 
-        if (videoId) {
-            // Construct the embed link (adjust based on TeraBox or other service URLs)
-            const embedLink = `https://terabox.com/embed/${videoId}`; // Adjust as needed
+        const videoSource = document.getElementById('video-source');
+        const errorMessage = document.getElementById('error-message');
 
-            // Create an iframe to display the video
-            const iframe = document.createElement('iframe');
-            iframe.src = embedLink;
-            iframe.allowFullscreen = true;
-            iframe.loading = 'lazy';
-
-            // Append the iframe to the video container
-            document.getElementById('video-container').appendChild(iframe);
+        if (videoUrl) {
+            // Set the video source to the provided URL
+            videoSource.src = videoUrl;
+            document.getElementById('video-player').load();
         } else {
-            // Show error if no video ID is provided
-            document.getElementById('error-message').innerText = 'No video ID provided.';
+            // Display an error if no video URL is provided
+            errorMessage.innerText = 'No valid video URL provided.';
         }
-
-        // Add a 'beforeunload' event listener to handle page closing safely
-        window.addEventListener('beforeunload', (event) => {
-            console.log('Page is about to be unloaded.');
-            // Optionally, display a confirmation dialog on some browsers
-            event.returnValue = ''; 
-        });
     </script>
 </body>
 </html>
