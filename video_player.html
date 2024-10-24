@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player</title>
+    <title>Universal Video Player</title>
     <style>
         body {
             display: flex;
@@ -41,7 +41,7 @@
     </style>
 </head>
 <body>
-    <h1>Video Player</h1>
+    <h1>Universal Video Player</h1>
     <div id="video-container"></div>
     <div id="error-message"></div>
 
@@ -51,21 +51,28 @@
         const videoId = urlParams.get('video');
 
         if (videoId) {
-            // Construct the TeraBox embed link or use an iframe-friendly URL
-            const embedLink = `https://terabox.com/embed/${videoId}`; // Adjust URL as needed
+            // Construct the embed link (adjust based on TeraBox or other service URLs)
+            const embedLink = `https://terabox.com/embed/${videoId}`; // Adjust as needed
 
-            // Embed the video in the iframe
-            document.getElementById('video-container').innerHTML = `
-                <iframe 
-                    src="${embedLink}" 
-                    allowfullscreen 
-                    loading="lazy">
-                </iframe>
-            `;
+            // Create an iframe to display the video
+            const iframe = document.createElement('iframe');
+            iframe.src = embedLink;
+            iframe.allowFullscreen = true;
+            iframe.loading = 'lazy';
+
+            // Append the iframe to the video container
+            document.getElementById('video-container').appendChild(iframe);
         } else {
-            // Show an error message if no video ID is provided
+            // Show error if no video ID is provided
             document.getElementById('error-message').innerText = 'No video ID provided.';
         }
+
+        // Add a 'beforeunload' event listener to handle page closing safely
+        window.addEventListener('beforeunload', (event) => {
+            console.log('Page is about to be unloaded.');
+            // Optionally, display a confirmation dialog on some browsers
+            event.returnValue = ''; 
+        });
     </script>
 </body>
 </html>
