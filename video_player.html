@@ -52,15 +52,16 @@
         const videoId = urlParams.get('video');
 
         if (videoId) {
-            // Construct the embed link (adjust if necessary)
-            const embedLink = `https://terabox.com/embed/${videoId}`;
+            // Construct the embed link (make sure this link is correct)
+            const embedLink = `https://terabox.com/embed/${videoId}`; // Adjust if necessary
 
             // Display the video (using an iframe)
             const videoContainer = document.getElementById('video-container');
             videoContainer.innerHTML = `
                 <iframe 
                     src="${embedLink}" 
-                    allowfullscreen>
+                    allowfullscreen 
+                    loading="lazy">
                 </iframe>
             `;
         } else {
