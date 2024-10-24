@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch Video</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Player</title>
 </head>
 <body>
-    <h1>Watch the Video</h1>
-    <video width="640" height="360" controls>
-        <source src="YOUR_VIDEO_URL_HERE" type="video/mp4"> <!-- Replace with TeraBox video URL -->
-        Your browser does not support the video tag.
-    </video>
+  <h1>VIDEO PLAYER</h1>
+  <div id="video-container">
+    <!-- Video will be embedded here -->
+  </div>
+
+  <script>
+    // Get the 'video' parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoId = urlParams.get('video');
+
+    if (videoId) {
+      // Display the video (example: using an iframe)
+      const videoContainer = document.getElementById('video-container');
+      videoContainer.innerHTML = `
+        <iframe 
+          src="https://terabox.com/embed/${videoId}" 
+          width="640" height="360" frameborder="0" allowfullscreen>
+        </iframe>
+      `;
+    } else {
+      document.getElementById('video-container').innerText = 'No video ID provided.';
+    }
+  </script>
 </body>
 </html>
-
